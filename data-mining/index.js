@@ -1,5 +1,5 @@
 // USER CONFIG
-const amountOfPagesToScrape = 22 // 22*48 = 1056 images
+const amountOfPagesToScrape = 50 // 50 pages * 48 images per page = 2400 images
 
 // Imports
 const puppeteer = require("puppeteer")
@@ -75,6 +75,7 @@ const scrapePage = async (pageNumber = 0) => {
       },
       carrier,
       image,
+      forValidation: false,
     })
   })
 
@@ -105,10 +106,15 @@ const start = async () => {
     )
     console.log(`Downloading images for page ${i}... \n`)
     secondaryProgressBar.start(page.length, 0)
-    for (let i = 0; i < page.length; i++) {
-      await saveImageToDisk(page[i].image.url, `./images/${page[i].fileName}`)
-      secondaryProgressBar.update(i + 1)
+
+    for (let j = 0; j < page.length; j++) {
+      const forValidation = j % 10 === 0
+      const path = `./images/${forValidation ? "validation" : "train"}/`
+      await saveImageToDisk(page[j].image.url, `${path}${page[j].fileName}`)
+      page[j].forValidation = forValidation
+      secondaryProgressBar.update(j + 1)
     }
+    // Stop the progress bar
     secondaryProgressBar.stop()
     // Add this page to pages object
     pages = pages.concat(page)

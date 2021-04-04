@@ -5,3 +5,4 @@ data-mining/images/train/*.jpg
 
 
 .DS_Store
+*.h5
