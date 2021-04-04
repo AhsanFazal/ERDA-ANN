@@ -1,0 +1,4 @@
+node_modules
+
+data-mining/images/validation/*.jpg
+data-mining/images/train/*.jpg
