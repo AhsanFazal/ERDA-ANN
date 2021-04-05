@@ -1,5 +1,5 @@
 // USER CONFIG
-const amountOfPagesToScrape = 50 // 50 pages * 48 images per page = 2400 images
+const amountOfPagesToScrape = 870 // 50 pages * 48 images per page = 2400 images
 
 // Imports
 const puppeteer = require("puppeteer")
